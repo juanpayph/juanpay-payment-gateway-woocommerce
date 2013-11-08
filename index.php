@@ -21,7 +21,8 @@ function woocommerce_juanpay_init()
             $this->icon         = apply_filters( 'woocommerce_juanpay_icon', $woocommerce->plugin_url() . '/assets/images/icons/juanpay.png' );
             $this->has_fields   = false;
             $this->liveurl      = 'https://www.juanpay.ph';
-            $this->testurl      = 'https://sandbox.juanpay.ph';
+//            $this->testurl      = 'https://sandbox.juanpay.ph';
+            $this->testurl      = 'http://localhost:3000';
             $this->method_title = __( 'JuanPay', 'woocommerce' );
             $this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_JuanPay', home_url( '/' ) ) );
 
@@ -36,10 +37,6 @@ function woocommerce_juanpay_init()
             $this->debug			= $this->get_option( 'debug' );
             $this->email 			= $this->get_option( 'email' );
             $this->api_key 			= $this->get_option( 'api_key' );
-            $this->order_prefix	    = $this->get_option( 'order_prefix', 'WC-' );
-
-
-
 
             $this->msg['message'] = "";
             $this->msg['class'] = "";
@@ -90,12 +87,6 @@ function woocommerce_juanpay_init()
                     'title' => __('API Key', 'woocommerce'),
                     'type' => 'text',
                     'description' => __('API key can be found in your JuanPay Account under Settings and API tab')),
-                'order_prefix' => array(
-                    'title' => __( 'Order Number Prefix', 'woocommerce' ),
-                    'type' => 'text',
-                    'description' => __( 'Please enter a prefix for your Order numbers. If you use your JuanPay account for multiple stores ensure this prefix is unique as JuanPay will not allow orders with the same invoice number.', 'woocommerce' ),
-                    'default' => 'WC-',
-                    'desc_tip'      => true,),
                 'redirect_page_id' => array(
                     'title' => __('Return Page'),
                     'type' => 'select',
@@ -184,7 +175,7 @@ function woocommerce_juanpay_init()
 
             $juanpay_args = array(
                 'email' => $this->email,
-                'order_number' => $this->order_prefix . ltrim( $order->get_order_number(), '#' ),
+                'order_number' => $order_id.'_#&_'.date("ymds"),
                 'confirm_form_option' => 'NONE',
                 'buyer_first_name' => $order->billing_first_name,
                 'buyer_last_name' => $order->billing_last_name,
@@ -378,7 +369,9 @@ jQuery("body").block(
         }
 
         function get_juanpay_order( $posted ) {
-            $order_id = (int) str_replace( $this->order_prefix, '', $posted['order_number'] );
+            $order_id = (int) substr( $posted['order_number'], 0, strpos($posted['order_number'], '_#&_'));
+            if ( $this->debug=='yes' )
+                $this->log->add( 'juanpay', 'Get JuanPay Order ID '.substr( $posted['order_number'], 0, strpos($posted['order_number'], '_#&_')));
 
             $order = new WC_Order( $order_id );
 
