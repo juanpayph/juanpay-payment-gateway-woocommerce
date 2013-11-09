@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce JuanPay Payment Gateway
 Plugin URI: http://www.juanpay.ph
 Description: JuanPay Payment gateway for woocommerce
-Version: 1.2
+Version: 1.3
 Author: Chris Ian Fiel
 Author URI: http://www.juanpay.ph
 */
@@ -21,7 +21,8 @@ function woocommerce_juanpay_init()
             $this->icon         = apply_filters( 'woocommerce_juanpay_icon', $woocommerce->plugin_url() . '/assets/images/icons/juanpay.png' );
             $this->has_fields   = false;
             $this->liveurl      = 'https://www.juanpay.ph';
-            $this->testurl      = 'https://sandbox.juanpay.ph';
+//            $this->testurl      = 'https://sandbox.juanpay.ph';
+            $this->testurl      = 'http://localhost:3000';
             $this->method_title = __( 'JuanPay', 'woocommerce' );
             $this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_JuanPay', home_url( '/' ) ) );
 
@@ -199,6 +200,7 @@ function woocommerce_juanpay_init()
                         if ( $meta = $item_meta->display( true, true ) )
                             $item_name .= ' ( ' . $meta . ' )';
 
+                        $item_name = preg_replace('/\r|\n/m','',$item_name);
                         $juanpay_args[ 'item_name_' . $item_loop ] 	= html_entity_decode( $item_name, ENT_NOQUOTES, 'UTF-8' );
                         $juanpay_args[ 'qty_' . $item_loop ] 	= $item['qty'];
                         $juanpay_args[ 'price_' . $item_loop ] 		= $order->get_item_subtotal( $item, false );
