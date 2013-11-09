@@ -21,8 +21,7 @@ function woocommerce_juanpay_init()
             $this->icon         = apply_filters( 'woocommerce_juanpay_icon', $woocommerce->plugin_url() . '/assets/images/icons/juanpay.png' );
             $this->has_fields   = false;
             $this->liveurl      = 'https://www.juanpay.ph';
-//            $this->testurl      = 'https://sandbox.juanpay.ph';
-            $this->testurl      = 'http://localhost:3000';
+            $this->testurl      = 'https://sandbox.juanpay.ph';
             $this->method_title = __( 'JuanPay', 'woocommerce' );
             $this->notify_url   = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_JuanPay', home_url( '/' ) ) );
 
