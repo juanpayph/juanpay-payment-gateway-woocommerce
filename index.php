@@ -100,7 +100,7 @@ function woocommerce_juanpay_init()
                     'type' => 'checkbox',
                     'label' => __('Enable JuanPay sandbox', 'woocommerce'),
                     'default' => 'yes',
-                    'description' => sprintf(__('JuanPay sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'woocommerce'), 'https://sandbox.juanpay.ph/'),),
+                    'description' => sprintf(__('JuanPay sandbox can be used to test payments. Sign up for a developer account <a href="%s" target="_blank">here</a>.', 'woocommerce'), 'https://sandbox.juanpay.ph/'),),
                 'debug' => array(
                     'title' => __('Debug Log', 'woocommerce'),
                     'type' => 'checkbox',
