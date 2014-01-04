@@ -19,7 +19,7 @@ function woocommerce_juanpay_init()
             global $woocommerce;
             $this->id = 'juanpay';
             $this->icon         = apply_filters( 'woocommerce_juanpay_icon', $woocommerce->plugin_url() . '/assets/images/icons/juanpay.png' );
-            $this->has_fields   = false;.
+            $this->has_fields   = false;
             $this->liveurl      = 'https://www.juanpay.ph';
             $this->testurl      = 'https://sandbox.juanpay.ph';
             $this->method_title = __( 'JuanPay', 'woocommerce' );
