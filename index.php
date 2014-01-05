@@ -18,7 +18,7 @@ function woocommerce_juanpay_init()
         {
             global $woocommerce;
             $this->id = 'juanpay';
-            $this->icon         = apply_filters( 'woocommerce_juanpay_icon', $woocommerce->plugin_url() . '/assets/images/icons/juanpay.png' );
+            $this->icon         = apply_filters(  'woocommerce_juanpay_icon', plugins_url( '/juanpay.png' , __FILE__ ) );
             $this->has_fields   = false;
             $this->liveurl      = 'https://www.juanpay.ph';
             $this->testurl      = 'https://sandbox.juanpay.ph';
@@ -100,7 +100,7 @@ function woocommerce_juanpay_init()
                     'type' => 'checkbox',
                     'label' => __('Enable JuanPay sandbox', 'woocommerce'),
                     'default' => 'yes',
-                    'description' => sprintf(__('JuanPay sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'woocommerce'), 'https://sandbox.juanpay.com/'),),
+                    'description' => sprintf(__('JuanPay sandbox can be used to test payments. Sign up for a developer account <a href="%s" target="_blank">here</a>.', 'woocommerce'), 'https://sandbox.juanpay.ph/'),),
                 'debug' => array(
                     'title' => __('Debug Log', 'woocommerce'),
                     'type' => 'checkbox',
